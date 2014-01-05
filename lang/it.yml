@@ -1,0 +1,11 @@
+it:
+  FeedReaderPage:
+    SINGULARNAME: 'Pagina feed'
+    PLURALNAME: 'Pagine feed'
+    DESCRIPTION: 'Rende accessibili i dati di un feed esterno al sistema di template'
+  FeedReader:
+    FEED_URL: 'URL del feed'
+    SUMMARY_LEN: 'Lunghezza riepilogo'
+    SUMMARY_LEN_COMMENT: 'Lunghezza massima della stringa di riepilogo (in byte), quando viene generato dal programma'
+    EXPIRATION: 'Durata cache'
+    EXPIRATION_COMMENT: 'Per quanti secondi si deve accedere ad una copia del feed invece di scaricare il feed reale'

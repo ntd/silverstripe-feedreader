@@ -1,0 +1,11 @@
+en:
+  FeedReaderPage:
+    SINGULARNAME: 'Feed reader page'
+    PLURALNAME: 'Feed reader pages'
+    DESCRIPTION: 'Make the data on an external feed accessible from the template system'
+  FeedReader:
+    FEED_URL: 'Feed URL'
+    SUMMARY_LEN: 'Summary length'
+    SUMMARY_LEN_COMMENT: 'Maximum length of the summary field (in bytes) when it is generated programmatically'
+    EXPIRATION: 'Cache timeout'
+    EXPIRATION_COMMENT: 'How many seconds a cached copy must be accessed instead of downloading the real feed'
