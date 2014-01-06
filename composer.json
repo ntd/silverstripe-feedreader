@@ -1,8 +1,8 @@
 {
-    "name": "entidi/silverstripe-feedreader",
-    "description": "Provide a LatestNews widget and a view of the content of an RSS feed",
+    "name": "entidi/feedreader",
+    "description": "Provide a new page that can access the data of an external feed",
     "type": "silverstripe-module",
-    "keywords": ["silverstripe", "feedreader", "feed", "rss", "atom"],
+    "keywords": ["silverstripe", "feedreader", "client", "feed", "rss", "atom"],
     "require": {
         "silverstripe/framework": "3.*"
     },
@@ -20,6 +20,6 @@
         "source": "http://dev.entidi.com/p/silverstripe-feedreader/source/tree/master/"
     },
     "suggest": {
-        "entidi/silverstrap": "The default silverstripe-feedreader templates are compatibles with silverstrap"
+        "entidi/silverstrap": "The default silverstripe-feedreader template is compatible with the silverstrap theme"
     }
 }
