@@ -20,7 +20,7 @@ Installation
     2. Clone the repository:<br>
         <pre><code>git clone https://github.com/ntd/silverstripe-feedreader.git</code></pre>
     3. Install with composer:<br>
-        <pre><code>composer require entidi/silverstripe-feedreader dev-master</code></pre>
+        <pre><code>composer require entidi/feedreader dev-master</code></pre>
 
 2. Make sure the folder after being extracted is named `feedreader`
 3. Run in your browser `/dev/build` to rebuild the database.
