@@ -15,15 +15,9 @@
 		<div class="col-md-3 hidden-sm hidden-print">
 			<aside id="ss-toc" role="complementary">
 				<ul class="nav nav-pills nav-stacked">
-					<li id="ss-toc-header" class="text-muted"><%t Silverstrap.TOC %></li><% loop $Items %>
+					<% include AutotocHeader %><% loop $Items %>
 					<li><a href="#TOC-$Seq" data-target="#TOC-$Seq">$Title</a></li><% end_loop %>
 				</ul>
-				<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script type="text/javascript" src="/themes/silverstrap/js/bootstrap.min.js?m=1392914981"></script><script type="text/javascript" src="/themes/silverstrap/js/jquery.colorbox-min.js?m=1371471961"></script><script type="text/javascript">
-					$(document).ready(function() {
-						$('body').scrollspy({ target: '#ss-toc' });
-						$('#ss-toc').affix({ offset: { top: 72 } });
-					});
-				</script>
 			</aside>
 		</div>
 	</div>
