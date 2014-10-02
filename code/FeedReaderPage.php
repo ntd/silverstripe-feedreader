@@ -5,7 +5,7 @@
  */
 class FeedReaderPage extends Page {
 
-    static $icon = 'feedreader/images/feedreader';
+    static $icon = 'feedreader/img/rss.png';
     static $db = array(
         'FeedUrl'    => 'Varchar(254)',
         'SummaryLen' => 'Int',
