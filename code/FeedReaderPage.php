@@ -5,13 +5,13 @@
  */
 class FeedReaderPage extends Page
 {
-    static $icon = 'feedreader/img/rss.png';
-    static $db = array(
+    private static $icon = 'feedreader/img/rss.png';
+    private static $db = array(
         'FeedUrl'    => 'Varchar(254)',
         'SummaryLen' => 'Int',
         'Expiration' => 'Int'
     );
-    public static $defaults = array(
+    private static $defaults = array(
         'SummaryLen' => 255,
         'Expiration' => 3600
     );

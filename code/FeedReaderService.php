@@ -2,7 +2,6 @@
 
 class FeedReaderService extends RestfulService
 {
-
     private $_items;
     private $_summary_len;
 
