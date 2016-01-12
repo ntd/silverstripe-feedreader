@@ -12,32 +12,25 @@ and the `//feed/entry` expression will be used instead.
 Installation
 ------------
 
-1. Install the module in your base path (the directory with `cms` and
-   `framework` in it) in one of the following way:
-    1. Download the tarball and extract it:<br>
-        <pre><code>wget http://github.com/ntd/silverstripe-feedreader/archive/dev.zip
-        unzip dev.zip</code></pre>
-    2. Clone the repository:<br>
-        <pre><code>git clone https://github.com/ntd/silverstripe-feedreader.git</code></pre>
-    3. Install with composer:<br>
-        <pre><code>composer require entidi/feedreader dev-master</code></pre>
+To install silverstripe-autotoc you should proceed as usual: unpack or
+copy the directory tree inside your SilverStripe root directory and do a
+`dev/build/?flush`.
 
-2. Make sure the folder after being extracted is named `feedreader`
-3. Run in your browser `/dev/build` to rebuild the database.
-4. You should see the new _Feed reader page_ type in the CMS.
+If you use [composer](https://getcomposer.org/), you could just use the
+following command instead:
 
+    composer require entidi/silverstripe-feedreader
 
-How to use
-----------
+Usage
+-----
 
 The default template (`templates/Layout/FeedReaderPage.ss`) is
 compatible with the [silverstrap](http://dev.entidi.com/p/silverstrap/)
 theme but can be easily overriden by redefining the `FeedReaderPage.ss`
-file in your own theme. Check the original one for an example on how to
-use this module from a template.
+file in your own theme. Check the original file as an example.
 
 To provide access to the latest news, you can define a function similar
-to the following one in any of your controllers:
+to the following in your controller:
 
     public function LatestNews() {
         $news = DataObject::get_one('FeedReaderPage');
@@ -58,5 +51,11 @@ following one:
 Support
 -------
 
-For bug report or feature requests, go to the dedicated [development
-tracker](http://dev.entidi.com/p/silverstripe-feedreader/).
+This project has been developed by [ntd](mailto:ntd@entidi.it). Its
+[home page](http://silverstripe.entidi.com/) is shared by other
+[SilverStripe](http://www.silverstripe.org/) modules and themes.
+
+To check out the code, report issues or propose enhancements, go to the
+[dedicated tracker](http://dev.entidi.com/p/silverstripe-feedreader).
+Alternatively, you can do the same things by leveraging the official
+[github repository](https://github.com/ntd/silverstripe-feedreader).
