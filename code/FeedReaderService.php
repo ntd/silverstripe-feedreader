@@ -1,40 +1,47 @@
 <?php
 
-class FeedReaderService extends RestfulService {
-
+class FeedReaderService extends RestfulService
+{
     private $_items;
     private $_summary_len;
 
 
-    static private function _dateObject($node) {
+    private static function _dateObject($node)
+    {
         $text = (string) $node;
-        if (empty($text))
+        if (empty($text)) {
             return null;
+        }
 
         $timestamp = strtotime($text);
-        if ($timestamp === false)
+        if ($timestamp === false) {
             return null;
+        }
 
         return DBField::create_field('SS_Datetime', $timestamp);
     }
 
-    static private function _excerpt($html, $maxlen) {
+    private static function _excerpt($html, $maxlen)
+    {
         // Strip HTML tags and convert blank chains to a single space
         $excerpt = trim(preg_replace('/\s+/', ' ', strip_tags($html)));
-        if (strlen($excerpt) <= $maxlen)
+        if (strlen($excerpt) <= $maxlen) {
             return $excerpt;
+        }
 
         // Try to cut the excerpt on a word boundary
         $pivot = strrpos(substr($excerpt, 0, $maxlen - 2), ' ');
-        if ($pivot === false || $pivot < $maxlen - 15)
+        if ($pivot === false || $pivot < $maxlen - 15) {
             $pivot = $maxlen - 3;
+        }
         $excerpt = rtrim(substr($excerpt, 0, $pivot));
 
         // Ellipsize the final result
         return rtrim($excerpt, '.') . '...';
     }
 
-    private function _addRSS2Items($response) {
+    private function _addRSS2Items($response)
+    {
         foreach ($response->xpath('//channel/item') as $seq => $node) {
             $content = (string) $node->description;
             $row = new ArrayData(array(
@@ -54,7 +61,8 @@ class FeedReaderService extends RestfulService {
         }
     }
 
-    private function _addAtom1Items($response) {
+    private function _addAtom1Items($response)
+    {
         foreach ($response->xpath('//feed/entry') as $node) {
             $summary = (string) $node->summary;
             $content = (string) $node->content;
@@ -74,19 +82,23 @@ class FeedReaderService extends RestfulService {
     }
 
 
-    public function __construct($url, $expiration = 3600) {
+    public function __construct($url, $expiration = 3600)
+    {
         parent::__construct($url, $expiration);
     }
 
-    public function setSummaryLen($maxlen) {
+    public function setSummaryLen($maxlen)
+    {
         $this->_summary_len = $maxlen;
     }
 
-    public function getSummaryLen() {
+    public function getSummaryLen()
+    {
         return is_int($this->_summary_len) ? $this->_summary_len : 155;
     }
 
-    public function getItems() {
+    public function getItems()
+    {
         if (is_null($this->_items)) {
             $response = $this->request();
             $code = $response->getStatusCode();

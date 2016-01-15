@@ -3,20 +3,22 @@
 /**
  * Defines the FeedReaderPage page type.
  */
-class FeedReaderPage extends Page {
-
-    static $icon = 'feedreader/images/feedreader';
-    static $db = array(
+class FeedReaderPage extends Page
+{
+    private static $icon = 'feedreader/img/rss.png';
+    private static $db = array(
         'FeedUrl'    => 'Varchar(254)',
         'SummaryLen' => 'Int',
         'Expiration' => 'Int'
     );
-    static $defaults = array(
+    private static $defaults = array(
         'SummaryLen' => 255,
         'Expiration' => 3600
     );
 
-    function getCMSFields() {
+
+    public function getCMSFields()
+    {
         $fields = parent::getCMSFields();
 
         $fields->addFieldsToTab('Root.Main', array(
@@ -32,7 +34,8 @@ class FeedReaderPage extends Page {
 
     private $_service;
 
-    private function _getService() {
+    private function _getService()
+    {
         if (is_null($this->_service)) {
             $this->_service = new FeedReaderService($this->FeedUrl, $this->Expiration);
             $this->_service->setSummaryLen($this->SummaryLen);
@@ -41,7 +44,8 @@ class FeedReaderPage extends Page {
         return $this->_service;
     }
 
-    public function Items($count = null) {
+    public function Items($count = null)
+    {
         $service = $this->_getService();
         $items = $service->getItems();
 
@@ -51,5 +55,6 @@ class FeedReaderPage extends Page {
     }
 }
 
-class FeedReaderPage_Controller extends Page_Controller {
+class FeedReaderPage_Controller extends Page_Controller
+{
 }
