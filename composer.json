@@ -1,7 +1,7 @@
 {
   "name": "entidi/feedreader",
   "description": "A new page type that can access the data of an external feed",
-  "type": "silverstripe-module",
+  "type": "silverstripe-vendormodule",
   "homepage": "http://silverstripe.entidi.com/",
   "keywords": ["silverstripe", "feedreader", "feed", "rss", "atom", "consumer"],
   "license": "BSD-2-Clause",
@@ -19,6 +19,12 @@
   },
   "require": {
     "silverstripe/framework": "~4.0"
+  },
+  "autoload": {
+      "psr-4": {
+          "eNTiDi\\FeedReader\\": "src/",
+          "eNTiDi\\FeedReader\\Tests\\": "tests/"
+      }
   },
   "suggest": {
     "entidi/silverstrap": "The default template is compatible with the silverstrap theme"
