@@ -1,33 +1,39 @@
 <?php
 
+namespace eNTiDi\FeedReader;
+
+use Page;
+
 /**
  * Defines the FeedReaderPage page type.
  */
 class FeedReaderPage extends Page
 {
     private static $icon = 'feedreader/img/rss.png';
-    private static $db = array(
+
+    private static $db = [
         'FeedUrl'    => 'Varchar(254)',
         'SummaryLen' => 'Int',
         'Expiration' => 'Int'
-    );
-    private static $defaults = array(
+    ];
+
+    private static $defaults = [
         'SummaryLen' => 255,
-        'Expiration' => 3600
-    );
+        'Expiration' => 3600,
+    ];
 
 
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 
-        $fields->addFieldsToTab('Root.Main', array(
+        $fields->addFieldsToTab('Root.Main', [
             TextField::create('FeedUrl', _t('FeedReader.FEED_URL')),
             NumericField::create('SummaryLen', _t('FeedReader.SUMMARY_LEN'))
                 ->setDescription(_t('FeedReader.SUMMARY_LEN_COMMENT')),
             NumericField::create('Expiration', _t('FeedReader.EXPIRATION'))
                 ->setDescription(_t('FeedReader.EXPIRATION_COMMENT'))
-        ), 'Content');
+        ], 'Content');
 
         return $fields;
     }
@@ -53,8 +59,4 @@ class FeedReaderPage extends Page
         // internally, meaning a clone of $items will be returned
         return $items->limit($count);
     }
-}
-
-class FeedReaderPage_Controller extends Page_Controller
-{
 }

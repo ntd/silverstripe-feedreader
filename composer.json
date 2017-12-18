@@ -1,26 +1,26 @@
 {
-    "name": "entidi/feedreader",
-    "description": "A new page type that can access the data of an external feed",
-    "type": "silverstripe-module",
-    "homepage": "http://silverstripe.entidi.com/",
-    "keywords": ["silverstripe", "feedreader", "feed", "rss", "atom", "consumer"],
-    "license": "BSD-2-Clause",
-    "authors": [
-        {
-            "name": "Nicola Fontana",
-            "email": "ntd@entidi.it",
-            "homepage": "http://www.entidi.com/",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "issues": "http://dev.entidi.com/p/silverstripe-feedreader/issues/",
-        "source": "http://dev.entidi.com/p/silverstripe-feedreader/source/tree/master/"
-    },
-    "require": {
-        "silverstripe/framework": "~3.1"
-    },
-    "suggest": {
-        "entidi/silverstrap": "The default template is compatible with the silverstrap theme"
+  "name": "entidi/feedreader",
+  "description": "A new page type that can access the data of an external feed",
+  "type": "silverstripe-module",
+  "homepage": "http://silverstripe.entidi.com/",
+  "keywords": ["silverstripe", "feedreader", "feed", "rss", "atom", "consumer"],
+  "license": "BSD-2-Clause",
+  "authors": [
+    {
+      "name": "Nicola Fontana",
+      "email": "ntd@entidi.it",
+      "homepage": "http://www.entidi.com/",
+      "role": "Developer"
     }
+  ],
+  "support": {
+    "issues": "http://dev.entidi.com/p/silverstripe-feedreader/issues/",
+    "source": "http://dev.entidi.com/p/silverstripe-feedreader/source/tree/master/"
+  },
+  "require": {
+    "silverstripe/framework": "~4.0"
+  },
+  "suggest": {
+    "entidi/silverstrap": "The default template is compatible with the silverstrap theme"
+  }
 }

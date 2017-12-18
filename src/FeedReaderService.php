@@ -1,8 +1,16 @@
 <?php
 
-class FeedReaderService extends RestfulService
+namespace eNTiDi\FeedReader;
+
+use GuzzleHttp\Client;
+use Psr\SimpleCache\CacheInterface;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\ORM;
+
+class FeedReaderService
 {
-    private $_items;
+    private $_url;
+    private $_expiration;
     private $_summary_len;
 
 
@@ -40,11 +48,11 @@ class FeedReaderService extends RestfulService
         return rtrim($excerpt, '.') . '...';
     }
 
-    private function _addRSS2Items($response)
+    private function _appendRSS2Items(&$items, $response)
     {
         foreach ($response->xpath('//channel/item') as $seq => $node) {
             $content = (string) $node->description;
-            $row = new ArrayData(array(
+            $row = ArrayData::create([
                 'Id'      => (string) $node->guid,
                 'Seq'     => $seq,
                 'Link'    => (string) $node->link,
@@ -56,17 +64,17 @@ class FeedReaderService extends RestfulService
                 'Summary' => self::_excerpt($content, $this->_summary_len),
 
                 'Content' => $content
-            ));
-            $this->_items->push($row);
+            ]);
+            $items->push($row);
         }
     }
 
-    private function _addAtom1Items($response)
+    private function _appendAtom1Items(&$items, $response)
     {
         foreach ($response->xpath('//feed/entry') as $node) {
             $summary = (string) $node->summary;
             $content = (string) $node->content;
-            $row = new ArrayData(array(
+            $row = ArrayData::create([
                 'Id'      => (string) $node->id,
                 'Link'    => (string) $node->link['href'],
                 'Date'    => self::_dateObject($node->updated),
@@ -76,15 +84,15 @@ class FeedReaderService extends RestfulService
                 // Atom 1.0 does not require <content> elements, so
                 // ensure it is at least populated with $summary
                 'Content' => $content != '' ? $content : $summary
-            ));
-            $this->_items->push($row);
+            ]);
+            $items->push($row);
         }
     }
 
-
     public function __construct($url, $expiration = 3600)
     {
-        parent::__construct($url, $expiration);
+        $this->_url        = $url;
+        $this->_expiration = $expiration;
     }
 
     public function setSummaryLen($maxlen)
@@ -99,18 +107,28 @@ class FeedReaderService extends RestfulService
 
     public function getItems()
     {
-        if (is_null($this->_items)) {
-            $response = $this->request();
-            $code = $response->getStatusCode();
+        $cache = Injector::inst()->get(CacheInterface::class . '.FeedReader');
+        if ($cache->has('items')) {
+            $items = $cache->get('items');
+        } else {
+            $client = new Client([
+                'base_uri' => $this->_url,
+                'timeout'  => 2,
+            ]);
+            $client   = new Client([ 'timeout' => 2 ]);
+            $response = $client->request('GET', $this->_url);
+            $code     = $response->getStatusCode();
+            $data     = $response->getBody()->getContents();
             if ($code != 200) {
-                $body = $response->getBody();
-                user_error("RSS fetch error ($code). The response body is '$body'", E_USER_ERROR);
+                user_error("RSS fetch error ($code). The response body is '$data'", E_USER_ERROR);
             }
-            $this->_items = new ArrayList();
-            $this->_addRSS2Items($response);
-            $this->_addAtom1Items($response);
-        }
 
-        return $this->_items;
+            $xml = simplexml_load_string($data);
+            $items = ArrayList::create();
+            $this->_appendRSS2Items($items, $xml);
+            $this->_appendAtom1Items($items, $xml);
+            $cache->set('items', $items, $this->_expiration);
+        }
+        return $items;
     }
 }
