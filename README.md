@@ -12,14 +12,12 @@ and the `//feed/entry` expression will be used instead.
 Installation
 ------------
 
-To install silverstripe-autotoc you should proceed as usual: unpack or
-copy the directory tree inside your SilverStripe root directory and do a
-`dev/build/?flush`.
-
-If you use [composer](https://getcomposer.org/), you could just use the
-following command instead:
+With composer:
 
     composer require entidi/silverstripe-feedreader
+
+Without composer, download [the tarball](https://github.com/ntd/silverstripe-feedreader/releases)
+and unpack it under the base directory.
 
 Usage
 -----
