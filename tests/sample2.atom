@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <id>http://example.org/</id>
+ <title>Title</title>
+ <updated>2017-12-19T00:11:22Z</updated>
+ <author>
+  <name>Name 0</name>
+  <email>Email 0</email>
+ </author>
+
+ <entry>
+  <id>http://example.org/1</id>
+  <title>Entry 1</title>
+  <updated>2017-12-19T11:22:33Z</updated>
+ </entry>
+
+ <entry>
+  <id>http://example.org/2</id>
+  <title>Entry 2</title>
+  <updated>2017-12-19T22:33:44Z</updated>
+  <link href="http://example.org/link/2"/>
+  <summary>Summary 2</summary>
+  <content type="xhtml">
+   <div xmlns="http://www.w3.org/1999/xhtml">
+    <p>Content 2</p>
+   </div>
+  </content>
+  <author>
+   <name>Name 2</name>
+   <email>Email 2</email>
+  </author>
+ </entry>
+
+ <entry>
+  <id>http://example.org/3</id>
+  <title>Entry 3</title>
+  <updated>2017-12-19T03:44:55Z</updated>
+  <link href="http://example.org/link/3"/>
+  <summary>Summary 3</summary>
+ </entry>
+
+</feed>

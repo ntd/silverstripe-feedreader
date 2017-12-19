@@ -6,15 +6,29 @@ use GuzzleHttp\Client;
 use Psr\SimpleCache\CacheInterface;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\ORM;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\FieldType\DBField;
+use SilverStripe\View\ArrayData;
+use SimpleXMLElement;
 
 class FeedReaderService
 {
-    private $_url;
-    private $_expiration;
-    private $_summary_len;
+    private $url;
+    private $expiration;
+    private $options;
+    private $summary_len;
 
+    private static function getCache()
+    {
+        return Injector::inst()->get(CacheInterface::class . '.FeedReader');
+    }
 
-    private static function _dateObject($node)
+    private function getKey()
+    {
+        return urlencode($this->url);
+    }
+
+    private static function dateObject($node)
     {
         $text = (string) $node;
         if (empty($text)) {
@@ -26,10 +40,10 @@ class FeedReaderService
             return null;
         }
 
-        return DBField::create_field('SS_Datetime', $timestamp);
+        return DBField::create_field('DBDatetime', $timestamp);
     }
 
-    private static function _excerpt($html, $maxlen)
+    private static function excerpt($html, $maxlen)
     {
         // Strip HTML tags and convert blank chains to a single space
         $excerpt = trim(preg_replace('/\s+/', ' ', strip_tags($html)));
@@ -48,20 +62,19 @@ class FeedReaderService
         return rtrim($excerpt, '.') . '...';
     }
 
-    private function _appendRSS2Items(&$items, $response)
+    private function appendRSS2Items(&$items, $xml)
     {
-        foreach ($response->xpath('//channel/item') as $seq => $node) {
+        foreach ($xml->xpath('//channel/item') as $node) {
             $content = (string) $node->description;
             $row = ArrayData::create([
                 'Id'      => (string) $node->guid,
-                'Seq'     => $seq,
                 'Link'    => (string) $node->link,
-                'Date'    => self::_dateObject($node->pubDate),
+                'Date'    => self::dateObject($node->pubDate),
                 'Title'   => (string) $node->title,
 
                 // RSS 2.0 does not have a summary field: generate it
                 // from an excerpt of the "description" field
-                'Summary' => self::_excerpt($content, $this->_summary_len),
+                'Summary' => self::excerpt($content, $this->getSummaryLen()),
 
                 'Content' => $content
             ]);
@@ -69,66 +82,76 @@ class FeedReaderService
         }
     }
 
-    private function _appendAtom1Items(&$items, $response)
+    private function appendAtom1Items(&$items, $xml)
     {
-        foreach ($response->xpath('//feed/entry') as $node) {
+        $xml->registerXPathNamespace('A', 'http://www.w3.org/2005/Atom');
+        foreach ($xml->xpath('//A:feed/A:entry') as $node) {
             $summary = (string) $node->summary;
-            $content = (string) $node->content;
+            if (! $node->content) {
+                // Atom 1.0 does not require <content> elements, so
+                // ensure it is at least populated with $summary
+                $content = $summary;
+            } elseif ($node->content->count() > 0) {
+                $content = $node->content->children()[0]->asXML();
+            } else {
+                $content = (string) $node->content;
+            }
             $row = ArrayData::create([
                 'Id'      => (string) $node->id,
                 'Link'    => (string) $node->link['href'],
-                'Date'    => self::_dateObject($node->updated),
+                'Date'    => self::dateObject($node->updated),
                 'Title'   => (string) $node->title,
                 'Summary' => $summary,
-
-                // Atom 1.0 does not require <content> elements, so
-                // ensure it is at least populated with $summary
-                'Content' => $content != '' ? $content : $summary
+                'Content' => $content,
             ]);
             $items->push($row);
         }
     }
 
-    public function __construct($url, $expiration = 3600)
+    public function __construct($url, $expiration = 3600, $options = [])
     {
-        $this->_url        = $url;
-        $this->_expiration = $expiration;
+        $this->url        = $url;
+        $this->expiration = $expiration;
+        $this->options    = $options;
     }
 
     public function setSummaryLen($maxlen)
     {
-        $this->_summary_len = $maxlen;
+        $this->summary_len = $maxlen;
     }
 
     public function getSummaryLen()
     {
-        return is_int($this->_summary_len) ? $this->_summary_len : 155;
+        return is_int($this->summary_len) ? $this->summary_len : 155;
     }
 
     public function getItems()
     {
-        $cache = Injector::inst()->get(CacheInterface::class . '.FeedReader');
-        if ($cache->has('items')) {
-            $items = $cache->get('items');
+        $cache = self::getCache();
+        $key   = $this->getKey();
+        if ($cache->has($key)) {
+            $items = $cache->get($key);
         } else {
-            $client = new Client([
-                'base_uri' => $this->_url,
-                'timeout'  => 2,
-            ]);
-            $client   = new Client([ 'timeout' => 2 ]);
-            $response = $client->request('GET', $this->_url);
+            $client   = new Client($this->options + [ 'timeout' => 2 ]);
+            $response = $client->request('GET', $this->url);
             $code     = $response->getStatusCode();
             $data     = $response->getBody()->getContents();
             if ($code != 200) {
                 user_error("RSS fetch error ($code). The response body is '$data'", E_USER_ERROR);
             }
 
-            $xml = simplexml_load_string($data);
+            $xml = new SimpleXMLElement($data);
             $items = ArrayList::create();
-            $this->_appendRSS2Items($items, $xml);
-            $this->_appendAtom1Items($items, $xml);
-            $cache->set('items', $items, $this->_expiration);
+            $this->appendRSS2Items($items, $xml);
+            $this->appendAtom1Items($items, $xml);
+            $cache->set($key, $items, $this->expiration);
         }
         return $items;
+    }
+
+    public function clearCache()
+    {
+        $cache = self::getCache();
+        $cache->delete($this->getKey());
     }
 }
