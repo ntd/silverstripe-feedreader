@@ -1,5 +1,9 @@
 silverstripe-feedreader
 =======================
+[![License](https://poser.pugx.org/entidi/feedreader/license)](https://packagist.org/packages/entidi/feedreader)
+[![Build Status](https://travis-ci.org/ntd/silverstripe-feedreader.svg?branch=master)](https://travis-ci.org/ntd/silverstripe-feedreader)
+[![Code Quality](https://scrutinizer-ci.com/g/ntd/silverstripe-feedreader/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ntd/silverstripe-feedreader/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/entidi/feedreader/v/stable)](https://packagist.org/packages/entidi/feedreader)
 
 The [silverstripe-feedreader](http://silverstripe.entidi.com/) module
 implements a new page type (*FeedReaderPage*) that can access the data
