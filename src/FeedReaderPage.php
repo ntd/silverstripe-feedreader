@@ -12,6 +12,8 @@ class FeedReaderPage extends Page
 {
     private static $icon = 'feedreader/img/rss.png';
 
+    private static $table_name = 'FeedReaderPage';
+
     private static $db = [
         'FeedUrl'    => 'Varchar(254)',
         'SummaryLen' => 'Int',
@@ -22,6 +24,8 @@ class FeedReaderPage extends Page
         'SummaryLen' => 255,
         'Expiration' => 3600,
     ];
+
+    private $service;
 
 
     public function getCMSFields()
@@ -37,9 +41,7 @@ class FeedReaderPage extends Page
         return $fields;
     }
 
-    private $service;
-
-    private function getService()
+    public function getService()
     {
         if (! $this->service) {
             $this->service = new FeedReaderService($this->FeedUrl, $this->Expiration);
