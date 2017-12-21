@@ -66,7 +66,7 @@ class FeedReaderService
     {
         foreach ($xml->xpath('//channel/item') as $node) {
             $content = (string) $node->description;
-            $row = ArrayData::create([
+            $row = new ArrayData([
                 'Id'      => (string) $node->guid,
                 'Link'    => (string) $node->link,
                 'Date'    => self::dateObject($node->pubDate),
@@ -96,7 +96,7 @@ class FeedReaderService
             } else {
                 $content = (string) $node->content;
             }
-            $row = ArrayData::create([
+            $row = new ArrayData([
                 'Id'      => (string) $node->id,
                 'Link'    => (string) $node->link['href'],
                 'Date'    => self::dateObject($node->updated),
@@ -141,7 +141,7 @@ class FeedReaderService
             }
 
             $xml = new SimpleXMLElement($data);
-            $items = ArrayList::create();
+            $items = new ArrayList();
             $this->appendRSS2Items($items, $xml);
             $this->appendAtom1Items($items, $xml);
             $cache->set($key, $items, $this->expiration);
