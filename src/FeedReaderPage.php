@@ -4,6 +4,8 @@ namespace eNTiDi\FeedReader;
 
 use Page;
 use eNTiDi\FeedReader\FeedReaderService;
+use SilverStripe\Forms\NumericField;
+use SilverStripe\Forms\TextField;
 
 /**
  * Defines the FeedReaderPage page type.
@@ -44,7 +46,7 @@ class FeedReaderPage extends Page
     public function getService()
     {
         if (! $this->service) {
-            $this->service = new FeedReaderService($this->FeedUrl, $this->Expiration);
+            $this->service = FeedReaderService::create($this->FeedUrl, $this->Expiration);
             $this->service->setSummaryLen($this->SummaryLen);
         }
         return $this->service;
