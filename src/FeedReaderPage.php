@@ -3,7 +3,7 @@
 namespace eNTiDi\FeedReader;
 
 use Page;
-use eNTiDi\FeedReader\FeedReaderService;
+use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Forms\NumericField;
 use SilverStripe\Forms\TextField;
 
@@ -50,7 +50,7 @@ class FeedReaderPage extends Page
     public function getService()
     {
         if (! $this->service) {
-            $this->service = FeedReaderService::create($this->FeedUrl, $this->Expiration);
+            $this->service = Injector::inst()->create('eNTiDi\FeedReader\FeedReaderService');
             $this->service->setSummaryLen($this->SummaryLen);
         }
         return $this->service;
