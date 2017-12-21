@@ -50,7 +50,11 @@ class FeedReaderPage extends Page
     public function getService()
     {
         if (! $this->service) {
-            $this->service = Injector::inst()->create('eNTiDi\FeedReader\FeedReaderService');
+            $this->service = Injector::inst()->create(
+                'eNTiDi\FeedReader\FeedReaderService',
+                $this->FeedUrl,
+                $this->Expiration
+            );
             $this->service->setSummaryLen($this->SummaryLen);
         }
         return $this->service;
