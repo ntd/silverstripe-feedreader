@@ -1,9 +1,11 @@
 it:
-  FeedReaderPage:
+  eNTiDi\FeedReader\FeedReaderPage:
     SINGULARNAME: 'Pagina feed'
     PLURALNAME: 'Pagine feed'
-    DESCRIPTION: 'Rende accessibili i dati di un feed esterno al sistema di template'
-  FeedReader:
+    PLURALS:
+      one: 'Una pagina feed'
+      other: '{count} pagine feed'
+    DESCRIPTION: 'Consente di accedere ai dati di un feed esterno'
     FEED_URL: 'URL del feed'
     SUMMARY_LEN: 'Lunghezza riepilogo'
     SUMMARY_LEN_COMMENT: 'Lunghezza massima della stringa di riepilogo (in byte), quando viene generato dal programma'

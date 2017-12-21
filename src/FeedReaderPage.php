@@ -12,8 +12,6 @@ use SilverStripe\Forms\TextField;
  */
 class FeedReaderPage extends Page
 {
-    private static $icon = 'feedreader/img/rss.png';
-
     private static $table_name = 'FeedReaderPage';
 
     private static $db = [
@@ -32,13 +30,19 @@ class FeedReaderPage extends Page
 
     public function getCMSFields()
     {
+        $t_FeedUrl    = _t(__CLASS__.'.FEED_URL', 'Feed URL');
+        $t_SummaryLen = _t(__CLASS__.'.SUMMARY_LEN', 'Summary length');
+        $d_SummaryLen = _t(__CLASS__.'.SUMMARY_LEN_COMMENT', 'Maximum length of the summary field (in bytes) when it is generated programmatically');
+        $t_Expiration = _t(__CLASS__.'.EXPIRATION', 'Cache timeout');
+        $d_Expiration = _t(__CLASS__.'.EXPIRATION_COMMENT', 'How many seconds a cached copy must be accessed instead of downloading the real feed');
+
         $fields = parent::getCMSFields();
         $fields->addFieldsToTab('Root.Feed', [
-            TextField::create('FeedUrl', _t('FeedReader.FEED_URL')),
-            NumericField::create('SummaryLen', _t('FeedReader.SUMMARY_LEN'))
-                ->setDescription(_t('FeedReader.SUMMARY_LEN_COMMENT')),
-            NumericField::create('Expiration', _t('FeedReader.EXPIRATION'))
-                ->setDescription(_t('FeedReader.EXPIRATION_COMMENT'))
+            TextField::create('FeedUrl', $t_FeedUrl),
+            NumericField::create('SummaryLen', $t_SummaryLen)
+                ->setDescription($d_SummaryLen),
+            NumericField::create('Expiration', $t_Expiration)
+                ->setDescription($d_Expiration),
         ]);
         return $fields;
     }
