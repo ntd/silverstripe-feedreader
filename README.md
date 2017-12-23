@@ -30,11 +30,11 @@ Installation
 How to use
 ----------
 
-The default template (`templates/Layout/FeedReaderPage.ss`) is
-compatible with the [silverstrap](http://dev.entidi.com/p/silverstrap/)
-theme but can be easily overriden by redefining the `FeedReaderPage.ss`
-file in your own theme. Check the original one for an example on how to
-use this module from a template.
+Although the default template (`templates/Layout/FeedReaderPage.ss`) is
+compatible with [silverstrap](http://dev.entidi.com/p/silverstrap/) ^3.0,
+it can be easily overriden by redefining the `FeedReaderPage.ss` file in
+your own theme. Check the original one for an example on how to use this
+module from a template.
 
 To provide access to the latest news, you can define a function similar
 to the following one in any of your controllers:
