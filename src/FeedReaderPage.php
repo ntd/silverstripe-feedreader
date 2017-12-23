@@ -53,7 +53,7 @@ class FeedReaderPage extends Page
             $this->service = Injector::inst()->create(
                 'eNTiDi\FeedReader\FeedReaderService',
                 $this->FeedUrl,
-                $this->Expiration
+                (int) $this->Expiration
             );
             $this->service->setSummaryLen($this->SummaryLen);
         }
