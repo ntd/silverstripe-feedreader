@@ -18,7 +18,7 @@ Installation
 
 With composer:
 
-    composer require entidi/silverstripe-feedreader
+    composer require entidi/feedreader
 
 Without composer, download [the tarball](https://github.com/ntd/silverstripe-feedreader/releases)
 and unpack it under the base directory.
@@ -26,13 +26,13 @@ and unpack it under the base directory.
 Usage
 -----
 
-The default template (`templates/Layout/FeedReaderPage.ss`) is
-compatible with the [silverstrap](http://dev.entidi.com/p/silverstrap/)
+The default template (`templates/eNTiDi/FeedReader//Layout/FeedReaderPage.ss`)
+is compatible with the [silverstrap](http://dev.entidi.com/p/silverstrap/)
 theme but can be easily overriden by redefining the `FeedReaderPage.ss`
-file in your own theme. Check the original file as an example.
+file in your own theme with higher priority.
 
 To provide access to the latest news, you can define a function similar
-to the following in your controller:
+to the following:
 
     public function LatestNews()
     {
@@ -40,14 +40,13 @@ to the following in your controller:
         return $news ? $news->Items(1)->first() : null;
     }
 
-Then you can enhance that page with a template snippet similar to the
-following one:
+Then you can enhance your feed page with a template snippet, e.g.:
 
     <% with $LatestNews %>
     <h2>Latest news</h2>
     <section>
-        <p>$Date.Date: $Summary</p>
-        <a href="$Link">More ...</a>
+        <p>$Date.Date: $Summary.XML</p>
+        <a href="$Link.ATT">More ...</a>
     </section>
     <% end_with %>
 
