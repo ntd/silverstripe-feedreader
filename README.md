@@ -13,6 +13,12 @@ automatically deduced from its content, that is if the `//channel/item`
 list it is considered an RSS2 feed, otherwise it is considered ATOM1,
 and the `//feed/entry` expression will be used instead.
 
+The main developement is done in `dev`: that is merged into `master` when
+stable enough. When this happens, an appropriate `2.*` release is tagged.
+`dev` and `master` branches, together with any `2.*` release, are compatibles
+with SilverStripe 4. For SilverStripe 3 you should take a look at the `ss3`
+branch and `1.*` releases.
+
 Installation
 ------------
 
@@ -21,7 +27,8 @@ With composer:
     composer require entidi/feedreader
 
 Without composer, download [the tarball](https://github.com/ntd/silverstripe-feedreader/releases)
-and unpack it under the base directory.
+and unpack it under the base directory. This method is not really tested,
+so it can be possible you will need to tweak something.
 
 Usage
 -----
