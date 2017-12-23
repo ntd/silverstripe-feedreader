@@ -34,8 +34,9 @@ file in your own theme. Check the original file as an example.
 To provide access to the latest news, you can define a function similar
 to the following in your controller:
 
-    public function LatestNews() {
-        $news = DataObject::get_one('FeedReaderPage');
+    public function LatestNews()
+    {
+        $news = DataObject::get_one('eNTiDi\FeedReader\FeedReaderPage');
         return $news ? $news->Items(1)->first() : null;
     }
 
