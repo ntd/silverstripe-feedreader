@@ -1,0 +1,3 @@
+mappings:
+  FeedReaderPage: eNTiDi\FeedReader\FeedReaderPage
+  FeedReaderService: eNTiDi\FeedReader\FeedReaderService

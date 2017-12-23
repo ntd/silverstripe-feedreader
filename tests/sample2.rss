@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+ <channel>
+  <link>http://example.org/</link>
+  <title>Title</title>
+  <pubDate>2017-12-19T00:11:22Z</pubDate>
+  <author>Email 0 (Name 0)</author>
+
+  <item>
+   <guid>http://example.org/1</guid>
+   <title>Entry 1</title>
+   <pubDate>Tue, 19 Dec 2017 11:22:33 +0000</pubDate>
+  </item>
+
+  <item>
+   <guid>http://example.org/2</guid>
+   <title>Entry 2</title>
+   <pubDate>2017-12-19T22:33:44Z</pubDate>
+   <link>http://example.org/link/2</link>
+   <description>Content 2</description>
+   <author>Email 2 (Name 2)</author>
+  </item>
+
+  <item>
+   <guid>http://example.org/3</guid>
+   <title>Entry 3</title>
+   <pubDate>2017-12-19T03:44:55Z</pubDate>
+   <link>http://example.org/link/3</link>
+   <description>Summary 3</description>
+  </item>
+
+ </channel>
+</rss>

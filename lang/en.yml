@@ -1,9 +1,11 @@
 en:
-  FeedReaderPage:
-    SINGULARNAME: 'Feed reader page'
-    PLURALNAME: 'Feed reader pages'
-    DESCRIPTION: 'Make the data on an external feed accessible from the template system'
-  FeedReader:
+  eNTiDi\FeedReader\FeedReaderPage:
+    SINGULARNAME: 'Feed Reader Page'
+    PLURALNAME: 'Feed Reader Pages'
+    PLURALS:
+      one: 'A feed reader page'
+      other: '{count} feed reader pages'
+    DESCRIPTION: 'Give access to the data of an external feed'
     FEED_URL: 'Feed URL'
     SUMMARY_LEN: 'Summary length'
     SUMMARY_LEN_COMMENT: 'Maximum length of the summary field (in bytes) when it is generated programmatically'

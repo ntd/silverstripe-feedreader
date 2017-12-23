@@ -1,0 +1,8 @@
+---
+Name: feedreadercache
+---
+SilverStripe\Core\Injector\Injector:
+  Psr\SimpleCache\CacheInterface.FeedReader:
+    factory: SilverStripe\Core\Cache\CacheFactory
+    constructor:
+      namespace: "FeedReader"

@@ -1,0 +1,6 @@
+eNTiDi\FeedReader\FeedReaderPage:
+  TestPage:
+    ClassName: eNTiDi\FeedReader\FeedReaderPage
+    FeedUrl: http://localhost
+    SummaryLen: 255
+    Expiration: 3600

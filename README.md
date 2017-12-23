@@ -1,5 +1,9 @@
 silverstripe-feedreader
 =======================
+[![License](https://poser.pugx.org/entidi/feedreader/license)](https://packagist.org/packages/entidi/feedreader)
+[![Build Status](https://travis-ci.org/ntd/silverstripe-feedreader.svg?branch=master)](https://travis-ci.org/ntd/silverstripe-feedreader)
+[![Code Quality](https://scrutinizer-ci.com/g/ntd/silverstripe-feedreader/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ntd/silverstripe-feedreader/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/entidi/feedreader/v/stable)](https://packagist.org/packages/entidi/feedreader)
 
 The [silverstripe-feedreader](http://silverstripe.entidi.com/) module
 implements a new page type (*FeedReaderPage*) that can access the data
@@ -9,42 +13,47 @@ automatically deduced from its content, that is if the `//channel/item`
 list it is considered an RSS2 feed, otherwise it is considered ATOM1,
 and the `//feed/entry` expression will be used instead.
 
+The main developement is done in `dev`: that is merged into `master` when
+stable enough. When this happens, an appropriate `2.*` release is tagged.
+`dev` and `master` branches, together with any `2.*` release, are compatibles
+with SilverStripe 4. For SilverStripe 3 you should take a look at the `ss3`
+branch and `1.*` releases.
+
 Installation
 ------------
 
-To install silverstripe-autotoc you should proceed as usual: unpack or
-copy the directory tree inside your SilverStripe root directory and do a
-`dev/build/?flush`.
+With composer:
 
-If you use [composer](https://getcomposer.org/), you could just use the
-following command instead:
+    composer require entidi/feedreader
 
-    composer require entidi/silverstripe-feedreader
+Without composer, download [the tarball](https://github.com/ntd/silverstripe-feedreader/releases)
+and unpack it under the base directory. This method is not really tested,
+so it can be possible you will need to tweak something.
 
 Usage
 -----
 
-The default template (`templates/Layout/FeedReaderPage.ss`) is
-compatible with the [silverstrap](http://dev.entidi.com/p/silverstrap/)
-theme but can be easily overriden by redefining the `FeedReaderPage.ss`
-file in your own theme. Check the original file as an example.
+The default template (`templates/eNTiDi/FeedReader/Layout/FeedReaderPage.ss`)
+is compatible with [silverstrap](http://dev.entidi.com/p/silverstrap/) ^4.0
+but it can be easily overriden by redefining the `FeedReaderPage.ss` file in
+your own theme with higher priority.
 
 To provide access to the latest news, you can define a function similar
-to the following in your controller:
+to the following:
 
-    public function LatestNews() {
-        $news = DataObject::get_one('FeedReaderPage');
+    public function LatestNews()
+    {
+        $news = DataObject::get_one('eNTiDi\FeedReader\FeedReaderPage');
         return $news ? $news->Items(1)->first() : null;
     }
 
-Then you can enhance that page with a template snippet similar to the
-following one:
+Then you can enhance your feed page with a template snippet, e.g.:
 
     <% with $LatestNews %>
     <h2>Latest news</h2>
     <section>
-        <p>$Date.Date: $Summary</p>
-        <a href="$Link">More ...</a>
+        <p>$Date.Date: $Summary.XML</p>
+        <a href="$Link.ATT">More ...</a>
     </section>
     <% end_with %>
 
