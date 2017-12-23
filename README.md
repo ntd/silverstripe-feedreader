@@ -26,10 +26,10 @@ and unpack it under the base directory.
 Usage
 -----
 
-The default template (`templates/eNTiDi/FeedReader//Layout/FeedReaderPage.ss`)
-is compatible with the [silverstrap](http://dev.entidi.com/p/silverstrap/)
-theme but can be easily overriden by redefining the `FeedReaderPage.ss`
-file in your own theme with higher priority.
+The default template (`templates/eNTiDi/FeedReader/Layout/FeedReaderPage.ss`)
+is compatible with [silverstrap](http://dev.entidi.com/p/silverstrap/) ^4.0
+but it can be easily overriden by redefining the `FeedReaderPage.ss` file in
+your own theme with higher priority.
 
 To provide access to the latest news, you can define a function similar
 to the following:
