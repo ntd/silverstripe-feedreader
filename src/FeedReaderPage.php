@@ -30,11 +30,11 @@ class FeedReaderPage extends Page
 
     public function getCMSFields()
     {
-        $t_FeedUrl    = _t(__CLASS__.'.FEED_URL', 'Feed URL');
-        $t_SummaryLen = _t(__CLASS__.'.SUMMARY_LEN', 'Summary length');
-        $d_SummaryLen = _t(__CLASS__.'.SUMMARY_LEN_COMMENT', 'Maximum length of the summary field (in bytes) when it is generated programmatically');
-        $t_Expiration = _t(__CLASS__.'.EXPIRATION', 'Cache timeout');
-        $d_Expiration = _t(__CLASS__.'.EXPIRATION_COMMENT', 'How many seconds a cached copy must be accessed instead of downloading the real feed');
+        $t_FeedUrl    = _t(__CLASS__ . '.FEED_URL', 'Feed URL');
+        $t_SummaryLen = _t(__CLASS__ . '.SUMMARY_LEN', 'Summary length');
+        $d_SummaryLen = _t(__CLASS__ . '.SUMMARY_LEN_COMMENT', 'Maximum length of the summary field (in bytes) when it is generated programmatically');
+        $t_Expiration = _t(__CLASS__ . '.EXPIRATION', 'Cache timeout');
+        $d_Expiration = _t(__CLASS__ . '.EXPIRATION_COMMENT', 'How many seconds a cached copy must be accessed instead of downloading the real feed');
 
         $fields = parent::getCMSFields();
         $fields->addFieldsToTab('Root.Feed', [
@@ -49,7 +49,7 @@ class FeedReaderPage extends Page
 
     public function getService()
     {
-        if (! $this->service) {
+        if (!$this->service) {
             $this->service = Injector::inst()->create(
                 'eNTiDi\FeedReader\FeedReaderService',
                 $this->FeedUrl,
