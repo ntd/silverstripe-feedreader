@@ -87,7 +87,7 @@ class FeedReaderService
         $xml->registerXPathNamespace('A', 'http://www.w3.org/2005/Atom');
         foreach ($xml->xpath('//A:feed/A:entry') as $node) {
             $summary = (string) $node->summary;
-            if (! $node->content) {
+            if (!$node->content) {
                 // Atom 1.0 does not require <content> elements, so
                 // ensure it is at least populated with $summary
                 $content = $summary;
@@ -132,7 +132,7 @@ class FeedReaderService
         if ($cache->has($key)) {
             $items = $cache->get($key);
         } else {
-            $client   = new Client($this->options + [ 'timeout' => 2 ]);
+            $client   = new Client($this->options + ['timeout' => 2]);
             $response = $client->request('GET', $this->url);
             $code     = $response->getStatusCode();
             $data     = $response->getBody()->getContents();

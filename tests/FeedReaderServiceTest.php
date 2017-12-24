@@ -30,7 +30,7 @@ class FeedReaderServiceTest extends SapphireTest
         ]);
         $handler = HandlerStack::create($mock);
 
-        $service = new FeedReaderService($url, 3600, [ 'handler' => $handler ]);
+        $service = new FeedReaderService($url, 3600, ['handler' => $handler]);
         $service->clearCache();
 
         // First read
@@ -100,7 +100,7 @@ class FeedReaderServiceTest extends SapphireTest
         ]);
         $handler = HandlerStack::create($mock);
 
-        $service = new FeedReaderService($url, 3600, [ 'handler' => $handler ]);
+        $service = new FeedReaderService($url, 3600, ['handler' => $handler]);
         $service->clearCache();
 
         // First read
@@ -168,7 +168,7 @@ class FeedReaderServiceTest extends SapphireTest
             new Response(200, [], file_get_contents(__DIR__ . '/sample1.rss')),
         ]);
         $handler = HandlerStack::create($mock);
-        $service = new FeedReaderService('http://localhost/', 3600, [ 'handler' => $handler ]);
+        $service = new FeedReaderService('http://localhost/', 3600, ['handler' => $handler]);
         $service->clearCache();
 
         // Check the default summary length
